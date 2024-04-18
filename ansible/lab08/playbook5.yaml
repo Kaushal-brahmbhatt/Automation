@@ -1,0 +1,31 @@
+---
+- name: Manage users and groups
+  hosts: n01605052-l-1.canadacentral.cloudapp.azure.com
+  vars_files:
+    - vars/userinfo.yaml
+  tasks:
+    - name: Create group {{ grouplist1 }}
+      group:
+        name: "{{ grouplist1 }}"
+        state: present
+
+    - name: Create group {{ grouplist2 }}
+      group:
+        name: "{{ grouplist2 }}"
+        state: present
+
+    - name: Make user100 with UID 1500 and supplementary membership to group100
+      user:
+        name: "{{ userlist1 }}"
+        uid: 1500
+        groups: "{{ grouplist1 }}"
+        append: yes
+
+    - name: Make user200 with UID 1600, shell /bin/bash, and home directory under /home
+      user:
+        name: "{{ userlist2 }}"
+        uid: 1600
+        shell: /bin/bash
+        home: "/home/{{ userlist2 }}"
+        groups: "{{ grouplist2 }}"
+        append: yes

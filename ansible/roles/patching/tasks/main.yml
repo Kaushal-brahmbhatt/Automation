@@ -1,0 +1,11 @@
+---
+- name: Update all packages on CentOS or RedHat
+  package:
+    name: '*'
+    state: latest
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+  register: package_update_result
+
+- name: Display package update result
+  debug:
+    var: package_update_result

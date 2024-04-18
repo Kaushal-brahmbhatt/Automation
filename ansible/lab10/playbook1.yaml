@@ -1,0 +1,36 @@
+---
+- name: Manage files and folders
+  hosts: n01605052-l-1.canadacentral.cloudapp.azure.com
+  become: true
+  tasks:
+    - name: Create file on the automation machine
+      ansible.builtin.file:
+        path: /locfile
+        state: touch
+
+    - name: Copy locfile to managed nodes
+      ansible.builtin.file:
+        path: /tmp/locfile
+        owner: kaushal
+        group: root
+        mode: 0444
+        state: touch
+
+    - name: Set SELinux file type to etc_t
+      sefcontext:
+        target: /tmp/locfile
+        setype: etc_t
+        state: present
+
+    - name: Display status of /tmp/locfile
+      stat:
+        path: /tmp/locfile
+      register: locfile_status
+
+    - debug:
+        var: locfile_status
+
+    - name: Create empty file in user's home directory
+      file:
+        path: /home/emptyfile
+        state: touch

@@ -1,0 +1,12 @@
+---
+- name: Apply Remove, install and patching of packages
+  hosts: linux
+  become: true
+  gather_facts: true
+  roles:
+    - package_remove
+    - package_install
+    - patching
+    - profile_mgmt
+    - timezone
+    - syslog_updates

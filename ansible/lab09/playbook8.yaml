@@ -1,0 +1,11 @@
+---
+- name: Display List version of the 'setup' package
+  hosts: n01605052-l-1.canadacentral.cloudapp.azure.com
+  tasks:
+    - name: Gather package facts
+      package_facts:
+        manager: auto
+ 
+    - name: Display version of the 'setup' package
+      debug:
+        msg: "Version of 'setup' package is {{ ansible_facts.packages['setup'][0].version }}"

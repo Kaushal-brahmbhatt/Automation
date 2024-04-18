@@ -1,0 +1,8 @@
+---
+- name: Install ypserv package
+  hosts: linux
+  tasks:
+    - name: Install ypserv package
+      yum:
+        name: "{{ packages }}"
+        state: latest

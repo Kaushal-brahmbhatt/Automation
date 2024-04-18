@@ -1,0 +1,22 @@
+---
+- name: Install nmap package if defined
+  hosts: n01605052-l-1.canadacentral.cloudapp.azure.com
+  vars:
+    packages: nmap
+
+  tasks:
+    - name: Install nmap package
+      yum:
+        name: "{{ packages }}"
+        state: latest
+      when: packages is defined
+
+    - name: Display message if nmap is not defined
+      debug:
+        msg: "nmap package is not defined in the playbook"
+      when: packages is not defined
+
+    - name: Display message if nmap is installed
+      debug:
+        msg: "nmap package is installed"
+      when: packages is defined

@@ -1,0 +1,32 @@
+---
+- name: To Manage files and settings
+  hosts: n01605052-l-1.canadacentral.cloudapp.azure.com
+  tasks:
+    - name: Copy /etc/issue file and change permissions
+      copy:
+        src: /etc/issue
+        dest: /etc/issue
+        owner: user4000
+        group: cloudadmins
+        mode: "444"
+
+- name: Set timezone
+  hosts: linux
+  tasks:
+    - name: Change timezone to America/Edmonton
+      timezone:
+        name: America/Edmonton
+
+- name: Manage users and groups on ansible-l-vm2
+  hosts: n01605052-l-2.canadacentral.cloudapp.azure.com
+  tasks:
+    - name: Create group devops
+      group:
+        name: devops
+        state: present
+        
+    - name: Create user devops1 with UID 2500 and supplementary membership to devops group
+      user:
+        name: devops1
+        uid: 2500
+        groups: devops

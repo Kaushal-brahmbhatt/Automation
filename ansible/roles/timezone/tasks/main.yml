@@ -1,0 +1,5 @@
+---
+- name: Set time zone to America/Toronto on CentOS or RedHat
+  ansible.builtin.timezone:
+    name: America/Toronto
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'

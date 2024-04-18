@@ -1,0 +1,8 @@
+---
+- name: Check nodes with n01605052 hostname
+  hosts: linux
+  tasks:
+    - name: Checking if hostname contains n01605052
+      debug:
+        msg: "Node {{ inventory_hostname }} has myhumberID in its hostname"
+      when: "'n01605052' in inventory_hostname"

@@ -1,0 +1,12 @@
+---
+- name: Gather and Display Ansible Facts 
+  hosts: n01605052-l-1.canadacentral.cloudapp.azure.com
+  gather_facts: true 
+  tasks:
+    - name: Display node facts
+      debug:
+        var: ansible_facts
+
+    - name: Display FQDN, IPv4, and short hostname
+      debug:
+        msg: "FQDN: {{ ansible_facts.fqdn }}, IPv4: {{ ansible_facts.default_ipv4.address }}, Short Hostname: {{ ansible_facts.hostname }}"

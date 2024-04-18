@@ -1,0 +1,25 @@
+[localhost]
+; localhost
+
+[linux]
+vm-c-n01605052-1.canadacentral.cloudapp.azure.com
+vm-c-n01605052-2.canadacentral.cloudapp.azure.com
+vm-c-n01605052-3.canadacentral.cloudapp.azure.com
+
+[windows]
+; vm-w-n01605052-1.canadacentral.cloudapp.azure.com
+
+[os:children]
+linux
+windows
+
+[localhost:vars]
+ansible_password=123
+
+[windows:vars]
+ansible_user=kaushal
+ansible_password="N01605052@Winuser"
+ansible_connection=winrm
+ansible_port=5985
+ansible_winrm_transport=ntlm
+ansible_winrm_server_cert_validation=ignore

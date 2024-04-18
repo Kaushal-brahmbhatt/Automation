@@ -1,0 +1,26 @@
+---
+- name: To Configure user and install software
+  hosts: linux
+  tasks:
+    - name: Create user account user4000 & Create group account cloudadmins
+      user:
+        name: user4000
+        uid: 5000
+      
+    - name: Create group account cloudadmins
+      group:
+        name: cloudadmins
+        gid: 3000
+
+    - name: Install latest version of Apache & nmap
+      yum:
+        name: 
+          - httpd
+          - nmap
+        state: latest
+
+    - name: Start Apache service and set it to auto-start
+      systemd:
+        name: httpd
+        state: started
+        enabled: yes

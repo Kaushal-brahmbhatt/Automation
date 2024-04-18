@@ -1,0 +1,26 @@
+---
+- name: Install Bind and Evolution packages
+  hosts: n01605052-l-1.canadacentral.cloudapp.azure.com
+  tasks:
+    - name: Install Bind package
+      yum:
+        name: "{{ packages1 }}"
+        state: latest
+      register: bind_install_output
+
+    - name: Install Evolution package
+      yum:
+        name: "{{ packages2 }}"
+        state: latest
+      register: evolution_install_output
+
+    - name: Display entire task output
+      debug:
+        var: item
+      with_items:
+        - "{{ bind_install_output }}"
+        - "{{ evolution_install_output }}"
+
+    - name: Display names of installed packages
+      debug:
+        msg: "The installed packages are {{ packages1 }} and {{ packages2 }}"

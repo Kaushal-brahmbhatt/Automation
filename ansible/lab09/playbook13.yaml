@@ -1,0 +1,13 @@
+---
+- name: Install packages if conditions are met
+  hosts: n01605052-l-2.canadacentral.cloudapp.azure.com
+  gather_facts: true
+  tasks:
+    - name: Install Packages
+      yum:
+        name: "{{ packages }}"
+        state: latest
+      when:
+        - ansible_mounts[0].mount == '/'
+        - ansible_mounts[0].size_available > 2147483648
+  

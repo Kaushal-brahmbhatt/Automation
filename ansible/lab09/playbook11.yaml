@@ -1,0 +1,19 @@
+---
+- name: Add string to file conditionally
+  hosts: linux
+  gather_facts: yes
+  tasks:
+    - name: Check existence of /tmp/conditional file
+      ansible.builtin.file:
+        path: /tmp/conditional
+        state: touch
+
+    - name: Check RHEL version and kernel version
+      blockinfile:
+        path: /tmp/conditional       
+        block: |
+          This is my CentOS VM
+      when: 
+        - ansible_distribution == 'CentOS'
+        - ansible_distribution_version == '8.1'
+        - ansible_kernel == '4.18.0-147.8.1.el8_1.x86_64'

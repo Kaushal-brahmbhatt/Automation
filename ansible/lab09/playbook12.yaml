@@ -1,0 +1,10 @@
+---
+- name: Create user accounts
+  hosts: linux
+  become: true
+  tasks:
+    - name: Create user accounts
+      user:
+        name: "user{{ item }}"
+        uid: "{{ custom_uids[item - 101] }}"
+      loop: "{{ range(101, 111) }}"

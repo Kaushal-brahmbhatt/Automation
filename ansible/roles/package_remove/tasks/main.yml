@@ -1,0 +1,7 @@
+---
+- name: Remove packages on CentOS or RedHat
+  package:
+    name: "{{ item }}"
+    state: absent
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+  loop: "{{ packages_to_remove }}"

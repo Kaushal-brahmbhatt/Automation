@@ -1,0 +1,32 @@
+---
+- name: Install and configure Apache
+  hosts: n01605052-l-1.canadacentral.cloudapp.azure.com
+  become: true
+  tasks:
+    - name: Install Apache web server
+      ansible.builtin.yum:
+        name: httpd
+        state: present
+
+    - name: Add hostname to index.html
+      ansible.builtin.lineinfile:
+        path: /var/www/html/index.html
+        line: "Hostname: {{ ansible_hostname }}"
+        create: yes
+      notify: restart apache
+
+    - name: Enable Apache service
+      ansible.builtin.service:
+        name: httpd
+        enabled: yes
+
+    - name: Start Apache service
+      ansible.builtin.service:
+        name: httpd
+        state: started
+
+  handlers:
+    - name: restart apache
+      ansible.builtin.service:
+        name: httpd
+        state: restarted
